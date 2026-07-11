@@ -1,1 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LUTZ XIT NO GW</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <style>
+        /* ----- RESET ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0b0e1a;
+            padding: 20px;
+            overflow: hidden;
+            user-select: text;
+        }
+
+        /* ===== BACKGROUND GALAXY + AURORA ===== */
+        .bg-animasi {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a3e, #0d0d2b);
+            background-size: 400% 400%;
+            animation: gradasi 18s ease infinite;
+        }
+
+        @keyframes gradasi {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Lingkaran cahaya bergerak (aurora) */
+        .cahaya-1, .cahaya-2, .cahaya-3 {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: 0;
+            animation: gerakCahaya 20s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        .cahaya-1 {
+            width: 500px;
+            height: 500px;
+            background: #ff7eb3;
+            top: -100px;
+            left: -100px;
+            animation-duration: 25s;
+        }
+
+        .cahaya-2 {
+            width: 600px;
+            height: 600px;
+            background: #7b61ff;
+            bottom: -200px;
+            right: -200px;
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+
+        .cahaya-3 {
+            width: 400px;
+            height: 400px;
+            background: #00d4ff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 22s;
+            animation-delay: -10s;
+        }
+
+        @keyframes gerakCahaya {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(100px, -80px) scale(1.2); }
+            66% { transform: translate(-80px, 100px) scale(0.9); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* BINTIK + BINTANG JATUH */
+        .bintik {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(2px 2px at 10% 20%, #fff, transparent),
+                radial-gradient(3px 3px at 30% 60%, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 50% 10%, #ddd, transparent),
+                radial-gradient(3px 3px at 70% 80%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 90% 40%, #fff, transparent),
+                radial-gradient(3px 3px at 20% 90%, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 60% 30%, #fff, transparent),
+                radial-gradient(3px 3px at 80% 70%, rgba(255,255,255,0.6), transparent);
+            background-size: 350px 350px;
+            opacity: 0.6;
+            animation: bintikGerak 30s linear infinite;
+        }
+
+        @keyframes bintikGerak {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-80px, -60px); }
+        }
+
+        /* Bintang jatuh */
+        .bintang-jatuh {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+            box-shadow: 0 0 20px #fff, 0 0 40px #aaccff;
+            animation: jatuh 6s linear infinite;
+        }
+
+        .bintang-jatuh:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .bintang-jatuh:nth-child(2) { top: 30%; left: 70%; animation-delay: 2s; width: 6px; height: 6px; }
+        .bintang-jatuh:nth-child(3) { top: 60%; left: 10%; animation-delay: 4s; }
+        .bintang-jatuh:nth-child(4) { top: 80%; left: 80%; animation-delay: 1s; width: 5px; height: 5px; }
+
+        @keyframes jatuh {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: translate(120px, 200px) scale(0); opacity: 0; }
+        }
+
+        /* ===== KARTU UTAMA ===== */
+        .kartu {
+            position: relative;
+            z-index: 2;
+            max-width: 520px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 45px 30px 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.05);
+            text-align: center;
+            animation: floatKartu 6s ease-in-out infinite;
+        }
+
+        @keyframes floatKartu {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ===== AVATAR ===== */
+        .avatar-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 18px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff7eb3, #ff758c, #f5b8ea);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 56px;
+            color: #fff;
+            animation: putarAvatar 10s linear infinite, glowAvatar 3s ease-in-out infinite alternate;
+            box-shadow: 0 0 40px #ff7eb3aa;
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+
+        @keyframes putarAvatar {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes glowAvatar {
+            0% { box-shadow: 0 0 30px #ff7eb3aa, 0 0 60px #ff758c44; border-color: rgba(255,255,255,0.2); }
+            100% { box-shadow: 0 0 70px #ff7eb3ff, 0 0 120px #ff758c88; border-color: #fff; }
+        }
+
+        /* Border berputar di luar avatar */
+        .avatar-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            padding: 4px;
+            background: conic-gradient(from 0deg, #ff7eb3, #7b61ff, #00d4ff, #ff7eb3);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: putarBorder 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes putarBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== NAMA + COPY ===== */
+        .nama-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nama-akun {
+            font-size: 30px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #f7971e, #ffd200, #f7971e);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradasiTeks 4s linear infinite;
+        }
+
+        @keyframes gradasiTeks {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .tombol-copy {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 30px;
+            padding: 6px 16px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(4px);
+            -webkit-text-fill-color: #fff;
+        }
+
+        .tombol-copy:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255,255,255,0.15);
+        }
+
+        /* ===== DESKRIPSI ===== */
+        .deskripsi-singkat {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 17px;
+            margin-top: 8px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+
+        /* ===== TOMBOL AKSI ===== */
+        .tombol-aksi {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 60px;
+            padding: 14px 24px;
+            margin-top: 16px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tombol-aksi::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .tombol-aksi:hover::before {
+            opacity: 1;
+        }
+
+        .tombol-aksi:hover {
+            transform: translateY(-6px) scale(1.03);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .tombol-aksi i:first-child {
+            font-size: 30px;
+            width: 44px;
+            text-align: center;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        .tombol-aksi div {
+            flex: 1;
+            text-align: left;
+        }
+
+        .tombol-aksi h4 {
+            font-size: 17px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .tombol-aksi p {
+            font-size: 12px;
+            opacity: 0.7;
+            margin: 2px 0 0;
+        }
+
+        .ikon-kanan {
+            font-size: 16px;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+
+        .tombol-aksi:hover .ikon-kanan {
+            transform: translateX(8px) scale(1.1);
+            opacity: 1;
+        }
+
+        /* Warna tombol */
+        .saluran i:first-child { color: #0088cc; }
+        .ig i:first-child { color: #e1306c; }
+        .yt i:first-child { color: #ff0000; }
+        .wa i:first-child { color: #25d366; }
+
+        .saluran:hover { background: #0088cc22; border-color: #0088cc; box-shadow: 0 0 40px #0088cc33; }
+        .ig:hover { background: #e1306c22; border-color: #e1306c; box-shadow: 0 0 40px #e1306c33; }
+        .yt:hover { background: #ff000022; border-color: #ff0000; box-shadow: 0 0 40px #ff000033; }
+        .wa:hover { background: #25d36622; border-color: #25d366; box-shadow: 0 0 40px #25d36633; }
+
+        /* ===== FOOTER ===== */
+        .bawah {
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 13px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== RESPONSIF ===== */
+        @media (max-width: 480px) {
+            .kartu { padding: 30px 16px; }
+            .nama-akun { font-size: 24px; }
+            .tombol-aksi { padding: 12px 16px; gap: 12px; }
+            .tombol-aksi i:first-child { font-size: 24px; width: 34px; }
+            .tombol-copy { font-size: 12px; padding: 4px 12px; }
+            .avatar-wrapper { width: 100px; height: 100px; }
+            .avatar { font-size: 46px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background -->
+    <div class="bg-animasi"></div>
+    <div class="cahaya-1"></div>
+    <div class="cahaya-2"></div>
+    <div class="cahaya-3"></div>
+    <div class="bintik"></div>
+
+    <!-- Bintang jatuh -->
+    <div class="bintang-jatuh"></div>
+    <div class="bintang-jatuh"></div>
+    <div class="bintang-jatuh"></div>
+    <div class="bintang-jatuh"></div>
+
+    <!-- Kartu -->
+    <div class="kartu">
+
+        <!-- Avatar berputar -->
+        <div class="avatar-wrapper">
+            <div class="avatar">
+                <i class="fas fa-user-astronaut"></i>
+            </div>
+        </div>
+
+        <!-- Nama + Copy -->
+        <div class="nama-wrapper">
+            <span class="nama-akun" id="namaAkun">KREATOR JAWA</span>
+            <button class="tombol-copy" onclick="copyNama()">
+                <i class="fas fa-copy"></i> Salin
+            </button>
+        </div>
+
+        <p class="deskripsi-singkat">✨ Creator by lutz ✨</p>
+
+        <!-- Tombol aksi -->
+        <a href="https://t.me/+rkMsMJKGp7FkNWE1" target="_blank" class="tombol-aksi saluran">
+            <i class="fab fa-telegram-plane"></i>
+            <div>
+                <h4>JOIN SALURAN</h4>
+                <p>Dapatkan Update Terbaru</p>
+            </div>
+            <i class="fas fa-external-link-alt ikon-kanan"></i>
+        </a>
+
+        <a href="https://www.instagram.com/lutz199303?igsh=MXYwYnA4YmlrNnV5aw==" target="_blank" class="tombol-aksi ig">
+            <i class="fab fa-instagram"></i>
+            <div>
+                <h4>FOLLOW INSTAGRAM</h4>
+                <p>Lihat Kegiatan Saya</p>
+            </div>
+            <i class="fas fa-external-link-alt ikon-kanan"></i>
+        </a>
+
+        <a href="https://www.youtube.com/@VINZZCHEATS" target="_blank" class="tombol-aksi yt">
+            <i class="fab fa-youtube"></i>
+            <div>
+                <h4>SUBSCRIBE YOUTUBE</h4>
+                <p>Tonton Tutorial Lengkap</p>
+            </div>
+            <i class="fas fa-external-link-alt ikon-kanan"></i>
+        </a>
+
+        <a href="https://wa.me/6288216462753" target="_blank" class="tombol-aksi wa">
+            <i class="fab fa-whatsapp"></i>
+            <div>
+                <h4>HUBUNGI SAYA</h4>
+                <p>Kerjasama & Tanya Jawab</p>
+            </div>
+            <i class="fas fa-external-link-alt ikon-kanan"></i>
+        </a>
+
+        <footer class="bawah">
+            <p>© 2026 LUTZ XIT JOIN NEW</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyNama() {
+            const nama = document.getElementById('namaAkun').innerText;
+            navigator.clipboard.writeText(nama).then(() => {
+                const btn = document.querySelector('.tombol-copy');
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                }, 2000);
+            }).catch(() => {
+                alert('Gagal menyalin, silakan copy manual: ' + nama);
+            });
+        }
+
+        // Efek glow mengikuti kursor di tombol
+        document.querySelectorAll('.tombol-aksi').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                el.style.setProperty('--x', x + '%');
+                el.style.setProperty('--y', y + '%');
+            });
+        });
+    </script>
+
+</body>
+</html>
